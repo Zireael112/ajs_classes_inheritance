@@ -1,22 +1,25 @@
 export default class Character {
   constructor(name, type) {
-    this.health = 100;
-    this.level = 1;
-    const typeHeroes = [
+    const typeContainer = [
       'Bowerman',
-      'Daemon',
-      'Magician',
       'Swordsman',
+      'Magician',
+      'Daemon',
       'Undead',
       'Zombie',
     ];
-
     if (typeof name === 'string' && name.length >= 2 && name.length <= 10) {
       this.name = name;
-      this.type = type;
     } else {
       throw new Error("the character's name must be from 2 to 10 letter");
     }
+    if (typeContainer.includes(type)) {
+      this.type = type;
+    } else {
+      throw new Error('Was selected wrong classes, available: Bowerman, Swordsman, Magician, Daemon, Undead, Zombie');
+    }
+    this.health = 100;
+    this.level = 1;
   }
 
   levelUp() {
@@ -33,6 +36,8 @@ export default class Character {
   damage(points) {
     if (this.health > 0) {
       this.health -= points * (1 - this.defence / 100);
+    } else {
+      throw new Error('Error, your character is dead');
     }
   }
 }

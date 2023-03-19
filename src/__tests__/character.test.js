@@ -45,9 +45,9 @@ test('test levelUp with error', () => {
   }).toThrow();
 });
 
-test('test damage', () => {
-  const recieved = new Bowerman('Vlad');
-  recieved.damage(1);
+test('test was damaged', () => {
+  const inst = new Bowerman('Vlad');
+  inst.damage(1);
   const result = {
     name: 'Vlad',
     type: 'Bowerman',
@@ -56,20 +56,21 @@ test('test damage', () => {
     attack: 25,
     defence: 25,
   };
-  expect(recieved).toEqual(result);
+  expect(inst).toEqual(result);
 });
 
-test('test damage', () => {
-  const recieved = new Bowerman('Vlad');
-  recieved.health = 0;
-  const result = {
-    name: 'Vlad',
-    type: 'Bowerman',
-    health: 0,
-    level: 1,
-    attack: 25,
-    defence: 25,
-  };
-  recieved.damage(1);
-  expect(recieved).toEqual(result);
+test('test damage with error', () => {
+  expect(() => {
+    const inst = new Character('Vlad', 'Bowerman');
+    inst.health = 0;
+    inst.damage(10);
+    return inst;
+  }).toThrow();
+});
+
+test('test includes', () => {
+  expect(() => {
+    const inst = new Character('Vlad', 'Tank');
+    return inst;
+  }).toThrow();
 });
